@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Patient Details - Nursery DBMS</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .detail-section { margin-top: 20px; }
+    .record { border: 1px solid var(--border-color); padding: 10px; margin-bottom: 10px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><i class="fa-solid fa-hospital"></i> Nursery DBMS</h1>
+  </header>
+  <nav>
+    <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="view-records.html"><i class="fa-solid fa-user"></i> Patient Records</a>
+    <a href="logout.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+  </nav>
+  <div class="container">
+    <h2>Patient Details</h2>
+    <div id="patientInfo">
+      <!-- Patient information will be loaded here -->
+    </div>
+    <h3>Sickness Records</h3>
+    <div id="sicknessRecords">
+      <!-- Sickness records will be loaded here -->
+    </div>
+  </div>
+  <script>
+    // Function to get query parameter by name
+    function getParameterByName(name, url = window.location.href) {
+      name = name.replace(/[\[\]]/g, '\\$&');
+      var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+          results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    const patientId = getParameterByName('id');
+    if (patientId) {
+      fetch('data.json')
+        .then(response => response.json())
+        .then(data => {
+          const patient = data.patients.find(p => p.patient_id === patientId);
+          if (patient) {
+            // Display patient information
+            document.getElementById("patientInfo").innerHTML = `
+              <p><strong>Student ID:</strong> ${patient.student_id}</p>
+              <p><strong>Name:</strong> ${patient.name} ${patient.surname} (Nickname: ${patient.nickname})</p>
+              <p><strong>Class:</strong> ${patient.class}</p>
+              <p><strong>Date of Birth:</strong> ${patient.dob}</p>
+              <p><strong>Age:</strong> ${patient.age}</p>
+            `;
+            // Display sickness records
+            let recordsHtml = "";
+            if (patient.sicknessRecords && patient.sicknessRecords.length > 0) {
+              patient.sicknessRecords.forEach(record => {
+                recordsHtml += `<div class="record">
+                                  <p><strong>Date/Time:</strong> ${new Date(record.timestamp).toLocaleString()}</p>
+                                  <p><strong>Sickness:</strong> ${record.sickness}</p>
+                                  <p><strong>Treatment:</strong> ${record.treatment}</p>
+                                  <p><strong>Referral:</strong> ${record.referral}</p>
+                                </div>`;
+              });
+            } else {
+              recordsHtml = "<p>No sickness records available.</p>";
+            }
+            document.getElementById("sicknessRecords").innerHTML = recordsHtml;
+          } else {
+            document.getElementById("patientInfo").innerHTML = "<p>Patient not found.</p>";
+          }
+        })
+        .catch(err => console.error("Error loading patient details:", err));
+    } else {
+      document.getElementById("patientInfo").innerHTML = "<p>No patient ID provided.</p>";
+    }
+  </script>
+</body>
+</html>

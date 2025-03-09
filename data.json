@@ -1,0 +1,29 @@
+{
+  "patients": [
+    {
+      "patient_id": "352",
+      "student_id": "352",
+      "class": "M1",
+      "name": "ชญคณัส",
+      "surname": "เศรษฐ์ธีรกิจ",
+      "nickname": "เหมยลี่",
+      "dob": "1991-11-25",
+      "age": 33,
+      "sicknessRecords": [
+        { "timestamp": "2025-04-30T08:00:00", "sickness": "ไข้", "treatment": "ยาลดไข้", "referral": "" }
+      ]
+    },
+    {
+      "patient_id": "353",
+      "student_id": "353",
+      "class": "M1",
+      "name": "ชร",
+      "surname": "สาตราภัย",
+      "nickname": "ชร",
+      "dob": "1991-08-23",
+      "age": 33,
+      "sicknessRecords": []
+    }
+    // Add other patient records as needed…
+  ]
+}

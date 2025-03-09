@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Sickness Record - Nursery DBMS</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- (Optional) Include a library for searchable dropdowns if desired -->
+</head>
+<body>
+  <header>
+    <h1><i class="fa-solid fa-plus"></i> Add Sickness Record</h1>
+  </header>
+  <nav>
+    <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="view-records.html"><i class="fa-solid fa-user"></i> Patient Records</a>
+    <a href="logout.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+  </nav>
+  <div class="container">
+    <h2>Add Sickness Record</h2>
+    <form id="sicknessForm">
+      <label for="patient_id">Select Patient:</label>
+      <select name="patient_id" id="patient_id" required>
+        <option value="">-- Select Patient --</option>
+        <!-- Options will be populated by script.js -->
+      </select>
+      
+      <label for="sickness">Sickness:</label>
+      <div class="input-group">
+        <input type="text" name="sickness" id="sickness" required placeholder="Type or speak your input here...">
+        <button type="button" class="mic-btn" id="micBtnSickness" title="Hold to speak"><i class="fa-solid fa-microphone"></i></button>
+      </div>
+      
+      <label for="treatment">Treatment:</label>
+      <div class="input-group">
+        <input type="text" name="treatment" id="treatment" required placeholder="Type or speak your input here...">
+        <button type="button" class="mic-btn" id="micBtnTreatment" title="Hold to speak"><i class="fa-solid fa-microphone"></i></button>
+      </div>
+      
+      <label for="referral">Referral (if any):</label>
+      <div class="input-group">
+        <input type="text" name="referral" id="referral" placeholder="Type or speak your input here...">
+        <button type="button" class="mic-btn" id="micBtnReferral" title="Hold to speak"><i class="fa-solid fa-microphone"></i></button>
+      </div>
+      
+      <button type="submit">Add Record</button>
+    </form>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

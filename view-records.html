@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Patient Records - Nursery DBMS</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    table { width: 100%; margin-top: 20px; }
+    th, td { padding: 10px; border: 1px solid var(--border-color); text-align: left; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><i class="fa-solid fa-hospital"></i> Nursery DBMS</h1>
+  </header>
+  <nav>
+    <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="add-sickness.html"><i class="fa-solid fa-plus"></i> Add Sickness Record</a>
+    <a href="logout.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+  </nav>
+  <div class="container">
+    <h2>Patient Records</h2>
+    <table id="patientTable">
+      <thead>
+        <tr>
+          <th>Patient ID</th>
+          <th>Student ID</th>
+          <th>Name</th>
+          <th>Class</th>
+          <th>Date of Birth</th>
+          <th>Age</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Rows will be populated by script.js -->
+      </tbody>
+    </table>
+  </div>
+  <script>
+    // Load patient records from data.json and populate the table
+    fetch('data.json')
+      .then(response => response.json())
+      .then(data => {
+        const tbody = document.querySelector("#patientTable tbody");
+        data.patients.forEach(patient => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${patient.patient_id}</td>
+            <td>${patient.student_id}</td>
+            <td>${patient.name} ${patient.surname}</td>
+            <td>${patient.class}</td>
+            <td>${patient.dob}</td>
+            <td>${patient.age}</td>
+          `;
+          // Add event listener for double-click to view detailed patient info
+          tr.addEventListener('dblclick', () => {
+            window.location.href = `patient_details.html?id=${patient.patient_id}`;
+          });
+          tbody.appendChild(tr);
+        });
+      })
+      .catch(err => console.error("Error loading patient records:", err));
+  </script>
+</body>
+</html>
