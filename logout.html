@@ -2,45 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Logged Out - Nursery DBMS</title>
+  <title>Logout - Nurseroom DBMS</title>
   <link rel="stylesheet" href="style.css">
-  <!-- Font Awesome CDN -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    .logout-container {
-      max-width: 400px;
-      margin: 100px auto;
-      background: #fff;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    .container {
       text-align: center;
-    }
-    .logout-container h2 {
-      margin-bottom: 20px;
-      font-size: 1.8em;
-      color: var(--primary-color);
-    }
-    .logout-container a {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 15px;
-      background-color: var(--primary-color);
-      color: #fff;
-      text-decoration: none;
-      border-radius: 4px;
-      transition: background 0.3s ease;
-    }
-    .logout-container a:hover {
-      background-color: var(--secondary-color);
+      margin-top: 100px;
     }
   </style>
 </head>
 <body>
-  <div class="logout-container">
-    <h2>You have been logged out</h2>
-    <p>Thank you for using Nursery DBMS.</p>
-    <a href="login.html"><i class="fa-solid fa-right-to-bracket"></i> Login Again</a>
+  <div class="container">
+    <h2>You have been logged out.</h2>
+    <a href="index.html">Return to Login</a>
   </div>
+  <script>
+    localStorage.removeItem('user');
+    setTimeout(function(){
+      window.location.href = "index.html";
+    }, 2000);
+  </script>
 </body>
 </html>
