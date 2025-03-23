@@ -1,0 +1,18 @@
+[
+  {
+    "patientId": "p001",
+    "studentId": "S001",
+    "name": "John Doe",
+    "class": "M1",
+    "dob": "2005-04-15",
+    "age": 18
+  },
+  {
+    "patientId": "p002",
+    "studentId": "S002",
+    "name": "Jane Smith",
+    "class": "M2",
+    "dob": "2006-06-20",
+    "age": 17
+  }
+]
