@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Add Sickness Record</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Global Navigation Bar -->
+  <nav class="glass-box">
+    <a href="main-menu.html">Home</a>
+    <a href="patient-records.html">Patient Records</a>
+    <a href="add-sickness.html">Add Sickness Record</a>
+    <a href="summary.html">Summary</a>
+    <a href="manage-users.html">Manage Users</a>
+    <a href="admin-dashboard.html">Admin Dashboard</a>
+    <a href="logout.html" id="logout">Logout</a>
+  </nav>
+  
+  <div class="glass-box" style="margin: 20px;">
+    <h2>Add Sickness Record</h2>
+    <form id="sicknessForm">
+      <label for="patientSelect">Select Patient:</label>
+      <select id="patientSelect" required>
+        <!-- Options loaded dynamically from patients.json -->
+      </select>
+      
+      <label for="sicknessDetails">Sickness Details:</label>
+      <textarea id="sicknessDetails" required></textarea>
+      <button type="button" onclick="startSpeech('sicknessDetails')">🎤</button>
+      
+      <label for="treatmentDetails">Treatment Details:</label>
+      <textarea id="treatmentDetails" required></textarea>
+      <button type="button" onclick="startSpeech('treatmentDetails')">🎤</button>
+      
+      <label for="referral">Referral (if any):</label>
+      <textarea id="referral"></textarea>
+      <button type="button" onclick="startSpeech('referral')">🎤</button>
+      
+      <br><br>
+      <button type="submit">Add Record</button>
+    </form>
+  </div>
+  
+  <script src="js/dbSimulator.js"></script>
+  <script>
+    // Ensure the user is logged in
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user) {
+      window.location.href = 'index.html';
+    }
+    
+    // Load patients into the dropdown; use localStorage override if available
+    loadJSON('data/patients.json')
+      .then(patients => {
+        const storedPatients = localStorage.getItem('patients');
+        if (storedPatients) {
+          patients = JSON.parse(storedPatients);
+        }
+        const patientSelect = document.getElementById('patientSelect');
+        patients.forEach(patient => {
+          const option = document.createElement('option');
+          option.value = patient.patientId;
+          option.text = `${patient.studentId} - ${patient.name}`;
+          patientSelect.appendChild(option);
+        });
+      })
+      .catch(error => console.error('Error loading patients:', error));
+      
+    // Fully functional Speech-to-Text integration using the Web Speech API
+    function startSpeech(textAreaId) {
+      if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+        alert('Speech recognition not supported in this browser.');
+        return;
+      }
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'th-TH';
+      
+      recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        document.getElementById(textAreaId).value += transcript;
+      };
+      
+      recognition.onerror = function(event) {
+        console.error('Speech recognition error:', event.error);
+      };
+      
+      recognition.start();
+    }
+    
+    // Handle form submission to add a sickness record
+    document.getElementById('sicknessForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const patientId = document.getElementById('patientSelect').value;
+      const sicknessDetails = document.getElementById('sicknessDetails').value.trim();
+      const treatmentDetails = document.getElementById('treatmentDetails').value.trim();
+      const referral = document.getElementById('referral').value.trim();
+      
+      // Retrieve existing records from localStorage (simulate a database)
+      let records = localStorage.getItem('sicknessRecords');
+      records = records ? JSON.parse(records) : [];
+      
+      // Create a new record with a unique ID
+      const newRecord = {
+        id: Date.now(),
+        patientId: patientId,
+        sicknessDetails: sicknessDetails,
+        treatmentDetails: treatmentDetails,
+        referral: referral,
+        date: new Date().toISOString().split('T')[0]
+      };
+      
+      records.push(newRecord);
+      localStorage.setItem('sicknessRecords', JSON.stringify(records));
+      
+      alert('Sickness record added successfully.');
+      window.location.href = 'summary.html';
+    });
+    
+    // Logout functionality
+    document.getElementById('logout').addEventListener('click', function(e) {
+      e.preventDefault();
+      localStorage.removeItem('user');
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>
