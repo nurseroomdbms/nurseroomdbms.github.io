@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nurseroom DBMS - Main Menu</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Global Navigation Bar -->
+  <nav class="glass-box">
+    <a href="main-menu.html">Home</a>
+    <a href="patient-records.html">Patient Records</a>
+    <a href="add-sickness.html">Add Sickness Record</a>
+    <a href="summary.html">Summary</a>
+    <a href="manage-users.html">Manage Users</a>
+    <a href="admin-dashboard.html">Admin Dashboard</a>
+    <a href="logout.html" id="logout">Logout</a>
+  </nav>
+  
+  <div class="glass-box" style="margin-top: 20px;">
+    <h1>Welcome, <span id="usernameDisplay"></span></h1>
+    <p>Your role: <span id="roleDisplay"></span></p>
+  </div>
+  
+  <script>
+    // Check session on load
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user) {
+      window.location.href = 'index.html';
+    } else {
+      document.getElementById('usernameDisplay').innerText = user.username;
+      document.getElementById('roleDisplay').innerText = user.role;
+    }
+    
+    // Logout functionality
+    document.getElementById('logout').addEventListener('click', function(e) {
+      e.preventDefault();
+      localStorage.removeItem('user');
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>
