@@ -1,90 +1,129 @@
 /* css/styles.css */
-body {
-  background: url('../images/background.jpg') no-repeat center center fixed;
-  background-size: cover;
-  font-family: Arial, sans-serif;
+/* Reset & global settings */
+* {
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(135deg, #1e1e1e, #3c3c3c);
+  color: #fff;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Glassmorphism container */
-.glass-box {
-  backdrop-filter: blur(15px);
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-  color: #fff;
-  padding: 40px;
-  text-align: center;
+/* Global Container */
+.container {
   width: 90%;
-  max-width: 400px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-/* Login container adjustments */
-.login-container {
-  margin-top: 100px;
+/* Modern Glassmorphism Style */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  padding: 30px;
+  transition: all 0.3s ease-in-out;
 }
 
-/* Input and button styles */
-input[type="text"], input[type="password"], textarea, select {
+.glass:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Navigation Bar */
+nav {
   width: 100%;
-  padding: 12px 20px;
-  margin: 10px 0;
-  border: none;
-  border-radius: 10px;
-}
-
-button {
-  width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 10px;
-  background-color: rgba(255,255,255,0.2);
-  color: #fff;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
-}
-
-button:hover {
-  background-color: rgba(255,255,255,0.4);
-}
-
-/* Navigation bar styling */
-nav.glass-box {
-  margin: 10px;
-  padding: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  padding: 15px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 nav a {
   color: #fff;
   text-decoration: none;
-  font-weight: bold;
+  font-size: 1.1em;
+  padding: 8px 15px;
+  transition: background 0.3s;
 }
 
 nav a:hover {
-  text-decoration: underline;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
 }
 
-/* Table styling for patient records */
+/* Forms */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input[type="text"],
+input[type="password"],
+textarea,
+select {
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+button {
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #4a90e2, #9013fe);
+  color: #fff;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #9013fe, #4a90e2);
+}
+
+/* Tables */
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 }
 
-table th, table td {
-  padding: 12px;
+table th,
+table td {
+  padding: 15px;
   text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 table th {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+  }
+  
+  nav a {
+    padding: 10px;
+    font-size: 1em;
+  }
 }
