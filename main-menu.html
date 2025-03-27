@@ -1,3 +1,4 @@
+<!-- main-menu.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,8 +8,7 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <!-- Global Navigation Bar -->
-  <nav class="glass-box">
+  <nav>
     <a href="main-menu.html">Home</a>
     <a href="patient-records.html">Patient Records</a>
     <a href="add-sickness.html">Add Sickness Record</a>
@@ -17,14 +17,13 @@
     <a href="admin-dashboard.html">Admin Dashboard</a>
     <a href="logout.html" id="logout">Logout</a>
   </nav>
-  
-  <div class="glass-box" style="margin-top: 20px;">
-    <h1>Welcome, <span id="usernameDisplay"></span></h1>
-    <p>Your role: <span id="roleDisplay"></span></p>
+  <div class="container">
+    <div class="glass" style="margin-top: 40px; text-align: center;">
+      <h1>Welcome, <span id="usernameDisplay"></span></h1>
+      <p>Your role: <span id="roleDisplay"></span></p>
+    </div>
   </div>
-  
   <script>
-    // Check session on load
     const user = JSON.parse(localStorage.getItem('user'));
     if (!user) {
       window.location.href = 'index.html';
@@ -33,7 +32,6 @@
       document.getElementById('roleDisplay').innerText = user.role;
     }
     
-    // Logout functionality
     document.getElementById('logout').addEventListener('click', function(e) {
       e.preventDefault();
       localStorage.removeItem('user');
