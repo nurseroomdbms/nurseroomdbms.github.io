@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nurseroom DBMS - Summary</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-brand">Nurseroom</div>
+    <div class="hamburger" id="hamburger">&#9776;</div>
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="main-menu.html">Home</a></li>
+      <li><a href="patient-records.html">Patient Records</a></li>
+      <li><a href="add-sickness.html">Add Sickness Record</a></li>
+      <li><a href="summary.html">Summary</a></li>
+      <li><a href="manage-users.html">Manage Users</a></li>
+      <li><a href="admin-dashboard.html">Admin Dashboard</a></li>
+      <li><a href="logout.html" id="logout">Logout</a></li>
+    </ul>
+  </nav>
+  <div class="container">
+    <div class="glass" style="margin-top: 40px;">
+      <h2>Summary</h2>
+      <div class="tabs">
+        <button class="tab-link active" onclick="openTab('tableTab', event)">Table Summary</button>
+        <button class="tab-link" onclick="openTab('graphTab', event)">Graph Summary</button>
+      </div>
+      <div id="tableTab" class="tab-content" style="display:block;">
+        <table>
+          <thead>
+            <tr>
+              <th>Date Range</th>
+              <th>Record Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2025-01-01 to 2025-01-31</td>
+              <td>10</td>
+            </tr>
+            <!-- More rows if needed -->
+          </tbody>
+        </table>
+      </div>
+      <div id="graphTab" class="tab-content" style="display:none;">
+        <p>Graph summary coming soon (integrate Chart.js or similar).</p>
+      </div>
+    </div>
+  </div>
+  <script>
+    function openTab(tabName, event) {
+      const tabs = document.querySelectorAll('.tab-content');
+      tabs.forEach(tab => tab.style.display = 'none');
+      document.getElementById(tabName).style.display = 'block';
+      
+      const links = document.querySelectorAll('.tab-link');
+      links.forEach(link => link.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+    }
+  </script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

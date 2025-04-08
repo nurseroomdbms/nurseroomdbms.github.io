@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nurseroom DBMS - Admin Dashboard</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-brand">Nurseroom</div>
+    <div class="hamburger" id="hamburger">&#9776;</div>
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="main-menu.html">Home</a></li>
+      <li><a href="patient-records.html">Patient Records</a></li>
+      <li><a href="add-sickness.html">Add Sickness Record</a></li>
+      <li><a href="summary.html">Summary</a></li>
+      <li><a href="manage-users.html">Manage Users</a></li>
+      <li><a href="admin-dashboard.html">Admin Dashboard</a></li>
+      <li><a href="logout.html" id="logout">Logout</a></li>
+    </ul>
+  </nav>
+  <div class="container">
+    <div class="glass" style="margin-top: 40px;">
+      <h2>Admin Dashboard</h2>
+      <div class="card-container">
+        <div class="card" onclick="window.location.href='manage-users.html'">
+          <h3>Manage Users</h3>
+          <p>Edit, add or remove user accounts.</p>
+        </div>
+        <div class="card" onclick="alert('View Logs functionality coming soon.')">
+          <h3>View Logs</h3>
+          <p>See system logs and activities.</p>
+        </div>
+        <div class="card" onclick="alert('System Settings functionality coming soon.')">
+          <h3>System Settings</h3>
+          <p>Configure system options.</p>
+        </div>
+        <div class="card" onclick="alert('Export Data functionality coming soon.')">
+          <h3>Export Data</h3>
+          <p>Download data backups.</p>
+        </div>
+        <div class="card" onclick="alert('Import Data functionality coming soon.')">
+          <h3>Import Data</h3>
+          <p>Upload new data.</p>
+        </div>
+        <div class="card" onclick="alert('Backup Database functionality coming soon.')">
+          <h3>Backup Database</h3>
+          <p>Create a backup of the database.</p>
+        </div>
+        <div class="card" onclick="alert('Restore Database functionality coming soon.')">
+          <h3>Restore Database</h3>
+          <p>Restore a previous backup.</p>
+        </div>
+        <div class="card" onclick="alert('View Statistics functionality coming soon.')">
+          <h3>View Statistics</h3>
+          <p>See data analytics.</p>
+        </div>
+        <div class="card" onclick="alert('Send Notification functionality coming soon.')">
+          <h3>Send Notification</h3>
+          <p>Notify users of system updates.</p>
+        </div>
+        <div class="card" onclick="alert('Audit Trail functionality coming soon.')">
+          <h3>Audit Trail</h3>
+          <p>Track system changes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="js/auth.js"></script>
+</body>
+</html>

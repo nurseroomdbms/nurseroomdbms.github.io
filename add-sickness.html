@@ -1,4 +1,3 @@
-<!-- add-sickness.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,13 +8,17 @@
 </head>
 <body>
   <nav>
-    <a href="main-menu.html">Home</a>
-    <a href="patient-records.html">Patient Records</a>
-    <a href="add-sickness.html">Add Sickness Record</a>
-    <a href="summary.html">Summary</a>
-    <a href="manage-users.html">Manage Users</a>
-    <a href="admin-dashboard.html">Admin Dashboard</a>
-    <a href="logout.html" id="logout">Logout</a>
+    <div class="nav-brand">Nurseroom</div>
+    <div class="hamburger" id="hamburger">&#9776;</div>
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="main-menu.html">Home</a></li>
+      <li><a href="patient-records.html">Patient Records</a></li>
+      <li><a href="add-sickness.html">Add Sickness Record</a></li>
+      <li><a href="summary.html">Summary</a></li>
+      <li><a href="manage-users.html">Manage Users</a></li>
+      <li><a href="admin-dashboard.html">Admin Dashboard</a></li>
+      <li><a href="logout.html" id="logout">Logout</a></li>
+    </ul>
   </nav>
   <div class="container">
     <div class="glass" style="margin-top: 40px;">
@@ -28,15 +31,15 @@
         
         <label for="sicknessDetails">Sickness Details:</label>
         <textarea id="sicknessDetails" required></textarea>
-        <button type="button" onclick="startSpeech('sicknessDetails')">🎤</button>
+        <button type="button" class="speech-btn" onclick="startSpeech('sicknessDetails')">🎤</button>
         
         <label for="treatmentDetails">Treatment Details:</label>
         <textarea id="treatmentDetails" required></textarea>
-        <button type="button" onclick="startSpeech('treatmentDetails')">🎤</button>
+        <button type="button" class="speech-btn" onclick="startSpeech('treatmentDetails')">🎤</button>
         
         <label for="referral">Referral (if any):</label>
         <textarea id="referral"></textarea>
-        <button type="button" onclick="startSpeech('referral')">🎤</button>
+        <button type="button" class="speech-btn" onclick="startSpeech('referral')">🎤</button>
         
         <button type="submit">Add Record</button>
       </form>
@@ -45,16 +48,12 @@
   <script src="js/dbSimulator.js"></script>
   <script>
     const user = JSON.parse(localStorage.getItem('user'));
-    if (!user) {
-      window.location.href = 'index.html';
-    }
+    if (!user) window.location.href = 'index.html';
     
     loadJSON('data/patients.json')
       .then(patients => {
         const storedPatients = localStorage.getItem('patients');
-        if (storedPatients) {
-          patients = JSON.parse(storedPatients);
-        }
+        if (storedPatients) patients = JSON.parse(storedPatients);
         const patientSelect = document.getElementById('patientSelect');
         patients.forEach(patient => {
           const option = document.createElement('option');
@@ -73,13 +72,17 @@
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       const recognition = new SpeechRecognition();
       recognition.lang = 'th-TH';
+      recognition.interimResults = false;
       recognition.onresult = function(event) {
         const transcript = event.results[0][0].transcript;
-        document.getElementById(textAreaId).value += transcript;
+        const textArea = document.getElementById(textAreaId);
+        textArea.value += transcript;
+        textArea.focus();
       };
       recognition.onerror = function(event) {
         console.error('Speech recognition error:', event.error);
       };
+      document.getElementById(textAreaId).focus();
       recognition.start();
     }
     
@@ -115,5 +118,6 @@
       window.location.href = 'index.html';
     });
   </script>
+  <script src="js/auth.js"></script>
 </body>
 </html>

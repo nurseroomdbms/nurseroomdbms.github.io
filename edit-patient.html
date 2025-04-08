@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Edit Patient</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-brand">Nurseroom</div>
+    <div class="hamburger" id="hamburger">&#9776;</div>
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="main-menu.html">Home</a></li>
+      <li><a href="patient-records.html">Patient Records</a></li>
+      <li><a href="add-sickness.html">Add Sickness Record</a></li>
+      <li><a href="summary.html">Summary</a></li>
+      <li><a href="manage-users.html">Manage Users</a></li>
+      <li><a href="admin-dashboard.html">Admin Dashboard</a></li>
+      <li><a href="logout.html" id="logout">Logout</a></li>
+    </ul>
+  </nav>
+  <div class="container">
+    <div class="glass" style="margin-top: 40px;">
+      <h2>Edit Patient</h2>
+      <form id="editPatientForm">
+        <input type="hidden" id="patientId">
+        <label for="studentId">Student ID:</label>
+        <input type="text" id="studentId" required>
+        <label for="name">Name:</label>
+        <input type="text" id="name" required>
+        <label for="class">Class:</label>
+        <input type="text" id="class" required>
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" required>
+        <label for="age">Age:</label>
+        <input type="number" id="age" required>
+        <button type="submit">Save Changes</button>
+      </form>
+    </div>
+  </div>
+  <script src="js/dbSimulator.js"></script>
+  <script>
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user) window.location.href = 'index.html';
+    
+    const params = new URLSearchParams(window.location.search);
+    const patientId = params.get('id');
+    document.getElementById('patientId').value = patientId;
+    
+    loadJSON('data/patients.json').then(patients => {
+      let storedPatients = localStorage.getItem('patients');
+      if (storedPatients) patients = JSON.parse(storedPatients);
+      const patient = patients.find(p => p.patientId === patientId);
+      if (patient) {
+        document.getElementById('studentId').value = patient.studentId;
+        document.getElementById('name').value = patient.name;
+        document.getElementById('class').value = patient.class;
+        document.getElementById('dob').value = patient.dob;
+        document.getElementById('age').value = patient.age;
+      } else {
+        alert('Patient not found.');
+        window.location.href = 'patient-records.html';
+      }
+    }).catch(console.error);
+    
+    document.getElementById('editPatientForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      loadJSON('data/patients.json').then(patients => {
+        let storedPatients = localStorage.getItem('patients');
+        if (storedPatients) patients = JSON.parse(storedPatients);
+        const index = patients.findIndex(p => p.patientId === patientId);
+        if (index !== -1) {
+          patients[index] = {
+            patientId: patientId,
+            studentId: document.getElementById('studentId').value,
+            name: document.getElementById('name').value,
+            class: document.getElementById('class').value,
+            dob: document.getElementById('dob').value,
+            age: document.getElementById('age').value
+          };
+          localStorage.setItem('patients', JSON.stringify(patients));
+          alert('Patient information updated.');
+          window.location.href = 'patient-records.html';
+        }
+      });
+    });
+  </script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

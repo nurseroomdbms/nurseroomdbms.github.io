@@ -5,8 +5,8 @@
     "role": "admin"
   },
   {
-    "username": "doctor",
-    "password": "doctor123",
+    "username": "nurse",
+    "password": "nurse123",
     "role": "staff"
   }
 ]
