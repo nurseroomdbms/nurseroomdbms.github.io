@@ -1,6 +1,6 @@
 // js/auth.js
 
-// Login functionality (only runs on index.html)
+// Login functionality (runs only on index.html)
 if (document.getElementById('loginForm')) {
   document.getElementById('loginForm').addEventListener('submit', function(e) {
     e.preventDefault();
