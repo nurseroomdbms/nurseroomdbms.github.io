@@ -26,20 +26,20 @@
       <form id="sicknessForm">
         <label for="patientSelect">Select Patient:</label>
         <select id="patientSelect" required>
-          <!-- Options will be loaded dynamically -->
+          <!-- Options will be dynamically loaded -->
         </select>
         
         <label for="sicknessDetails">Sickness Details:</label>
-        <textarea id="sicknessDetails" required></textarea>
-        <button type="button" class="speech-btn" onclick="startSpeech('sicknessDetails')">🎤</button>
+        <textarea id="sicknessDetails" required placeholder="Describe the sickness..."></textarea>
+        <button type="button" onclick="startSpeech('sicknessDetails')">🎤</button>
         
         <label for="treatmentDetails">Treatment Details:</label>
-        <textarea id="treatmentDetails" required></textarea>
-        <button type="button" class="speech-btn" onclick="startSpeech('treatmentDetails')">🎤</button>
+        <textarea id="treatmentDetails" required placeholder="Enter treatment details..."></textarea>
+        <button type="button" onclick="startSpeech('treatmentDetails')">🎤</button>
         
         <label for="referral">Referral (if any):</label>
-        <textarea id="referral"></textarea>
-        <button type="button" class="speech-btn" onclick="startSpeech('referral')">🎤</button>
+        <textarea id="referral" placeholder="Enter referral details if needed..."></textarea>
+        <button type="button" onclick="startSpeech('referral')">🎤</button>
         
         <button type="submit">Add Record</button>
       </form>
@@ -47,14 +47,17 @@
   </div>
   <script src="js/dbSimulator.js"></script>
   <script>
+    // Ensure user is logged in
     const user = JSON.parse(localStorage.getItem('user'));
     if (!user) window.location.href = 'index.html';
     
-    // Load patients into the dropdown
+    // Load patients into dropdown
     loadJSON('data/patients.json')
       .then(patients => {
         const storedPatients = localStorage.getItem('patients');
-        if (storedPatients) patients = JSON.parse(storedPatients);
+        if (storedPatients) {
+          patients = JSON.parse(storedPatients);
+        }
         const patientSelect = document.getElementById('patientSelect');
         patients.forEach(patient => {
           const option = document.createElement('option');
@@ -64,16 +67,16 @@
         });
       })
       .catch(error => console.error('Error loading patients:', error));
-      
-    // Updated Speech-to-Text function (Thai language)
+    
+    // Updated speech-to-text function for Thai (th-TH)
     function startSpeech(textAreaId) {
       if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-        alert('Speech recognition not supported in this browser.');
+        alert('Speech recognition is not supported in your browser.');
         return;
       }
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       const recognition = new SpeechRecognition();
-      recognition.lang = 'th-TH';  // Set language to Thai
+      recognition.lang = 'th-TH';
       recognition.interimResults = false;
       recognition.onresult = function(event) {
         const transcript = event.results[0][0].transcript;
@@ -84,6 +87,7 @@
       recognition.onerror = function(event) {
         console.error('Speech recognition error:', event.error);
       };
+      // Focus on the textarea before starting recognition
       document.getElementById(textAreaId).focus();
       recognition.start();
     }
